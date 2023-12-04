@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://dev.yosh.live/public/';
+    public string $baseURL = 'http://dev.yosh.live/public/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
