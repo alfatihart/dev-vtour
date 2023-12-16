@@ -409,7 +409,7 @@
         </div>
     </div>
     <!-- Popup -->
-    <div id="rotateDevicePopup" style="position: fixed; z-index: 999998; left: 0px; top: 0px; margin: 0px; padding: 0px; height: 100%; width: 100%; background-color: rgba(255, 255, 255, 0.99);">
+    <div id="rotateDevicePopup" style="display:none; position: fixed; z-index: 999998; left: 0px; top: 0px; margin: 0px; padding: 0px; height: 100%; width: 100%; background-color: rgba(255, 255, 255, 0.99);">
         <div style="box-sizing:border-box; padding:0 10vmin; display:table; height:100%; width:100vw;">
             <div style="vertical-align:middle; text-align:center; display:table-cell;">
                 <!-- <img style="width: 22vmin; transform: none;" src="/assets/img/rotate-device.png"> -->
