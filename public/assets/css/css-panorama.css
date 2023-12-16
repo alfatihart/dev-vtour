@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#panorama-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.pnlm-panorama-info {
+    background-color: transparent;
+    z-index: 5;
+    /* margin-left: 100px;
+    margin-bottom: 10px; */
+    left: 100px;
+    bottom: 5px;
+    height: 50px;
+}
+
+.pnlm-hotspot.pnlm-scene {
+    background-color: rgb(180, 0, 0);
+}
+
+.pnlm-load-box {
+    background-color: rgba(180, 150, 0, 0.7)
+}
+
+.pnlm-tooltip span {
+    background-color: rgba(180, 0, 0, 0.7) !important;
+}
+
+.pnlm-compass {
+    right: 50px;
+    bottom: 5px;
+}
+
+#control {
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.603);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
