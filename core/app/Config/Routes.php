@@ -19,6 +19,7 @@ $routes->get('/scenes', 'Admin\Scenes::index', ['filter' => 'auth']);
 $routes->get('/scenes/create', 'Admin\Scenes::create', ['filter' => 'auth']);
 $routes->post('/scenes/store', 'Admin\Scenes::store', ['filter' => 'auth']);
 $routes->get('/scenes/thumbnail', 'Admin\Scenes::thumbnail');
+$routes->get('/scenes/render/(:any)', 'Admin\Scenes::render/$1');
 $routes->delete('/scenes/(:num)', 'Admin\Scenes::delete/$1', ['filter' => 'auth']);
 $routes->post('/scenes/update/(:num)', 'Admin\Scenes::update/$1', ['filter' => 'auth']);
 $routes->get('/scenes/edit/(:segment)', 'Admin\Scenes::edit/$1', ['filter' => 'auth']);

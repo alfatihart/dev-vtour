@@ -2,8 +2,11 @@
 
 namespace App\Controllers\Admin;
 
+require __DIR__ . '/../../../vendor/autoload.php';
+
 use App\Controllers\BaseController;
 use App\Models\SceneModel; // Include the Scenes model
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Scenes extends BaseController
 {
@@ -250,6 +253,23 @@ class Scenes extends BaseController
 
         // Prevent CI4 from further processing
         exit();
+    }
+
+    public function render($image)
+    {
+        // Load the image
+        $img = Image::make('uploads/' . $image);
+
+        // Resize the image to a width of 250 and constrain aspect ratio (auto height)
+        // $img->resize(250, null, function ($constraint) {
+        //     $constraint->aspectRatio();
+        // });
+
+        // Make the image a progressive JPEG
+        $img->interlace();
+
+        // Return the image
+        return $img->response('jpg');
     }
 
     public function save()

@@ -191,7 +191,7 @@
             background-color: yellow;
             background: url(<?= base_url('/assets/img/door.gif'); ?>);
             background-size: 80px 80px;
-            /* transition: transform 0.3s ease; */
+            transition: transform 0.3s ease;
         }
 
         .info-hotspot {
@@ -200,7 +200,7 @@
             background-color: yellow;
             background: url(<?= base_url('/assets/img/info.gif'); ?>);
             background-size: 70px 70px;
-            /* transition: transform 0.3s ease; */
+            transition: transform 0.3s ease;
         }
 
         div.custom-tooltip span {
@@ -486,9 +486,7 @@
                             "pitch": <?= $scene['pitch']; ?>,
                             "yaw": <?= $scene['yaw']; ?>,
                             "type": "equirectangular",
-                            // "panorama": "<= base_url('uploads/' . $scene['image']); ?>",
-                            // "panorama": "<= base_url('cache/' . $scene['image']) . '_250x125.jpg'; ?>",
-                            "panorama": "<?= base_url('/scenes/render/' . $scene['image']); ?>",
+                            "panorama": "<?= base_url('uploads/' . $scene['image']); ?>",
                             "compass": <?= $setting['compass'] == 1 ? 'true' : 'false'; ?>,
                             "northOffset": <?= $scene['north_offset']; ?>,
                             "hotSpots": [
@@ -525,7 +523,7 @@
                                 "yaw": -180,
                                 "type": "scene",
                                 "cssClass": "room-hotspot",
-                                // "createTooltipFunc": hotspot,
+                                "createTooltipFunc": hotspot,
                                 "createTooltipArgs": "Koridor",
                                 "sceneId": "r-ballroom"
                             }
@@ -535,18 +533,20 @@
                 }
             });
 
-
+            function hotspot(hotSpotDiv, args) {
+                hotSpotDiv.classList.add('custom-tooltip');
+                var span = document.createElement('span');
+                span.innerHTML = args;
+                hotSpotDiv.appendChild(span);
+                span.style.width = span.scrollWidth - 20 + 'px';
+                span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + 'px';
+                span.style.marginTop = -span.scrollHeight - 12 + 'px';
+            }
             console.log('Panorama loaded!');
-            console.log('Current scene: ' + viewer.getScene());
-            viewer.on('scenechange', function(sceneId) {
-                console.log('New scene loaded: ' + sceneId);
-            });
             document.getElementById('fullscreen').addEventListener('click', function(e) {
                 viewer.toggleFullscreen();
             });
         }
-
-
 
         function toggle() {
             var panorama = document.getElementById('panorama');
