@@ -163,6 +163,19 @@
             .search-box {
                 width: 80vw;
             }
+
+            .pnlm-compass {
+                display: block !important;
+                top: 10px;
+                right: 8px;
+                bottom: auto;
+            }
+
+            .pnlm-panorama-info {
+                display: block !important;
+                top: 18px;
+                bottom: auto;
+            }
         }
 
 
@@ -248,7 +261,7 @@
 
 <body>
     <div id="panorama" style="width: 100vw; height: 100vh;">
-        <nav class="navbar navbar-expand fixed-bottom custom-navbar shadow-sm p-0 pt-2">
+        <nav class="navbar navbar-expand fixed-bottom custom-navbar shadow-sm p-0 pt-2 pb-2 pb-sm-0">
             <div class="container-fluid d-flex justify-content-center">
                 <ul class="navbar-nav">
                     <li class="nav-item text-center me-1 me-sm-3">
