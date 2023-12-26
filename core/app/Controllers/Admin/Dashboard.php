@@ -61,11 +61,11 @@ class Dashboard extends BaseController
                 $session->set($data);
                 return redirect()->to('/dashboard');
             } else {
-                $session->setFlashdata('message', 'Wrong Password');
+                $session->setFlashdata('fail', 'Wrong Password');
                 return redirect()->to('/login');
             }
         } else {
-            $session->setFlashdata('message', 'Username not Found');
+            $session->setFlashdata('fail', 'Username not Found');
             return redirect()->to('/login');
         }
     }
@@ -135,7 +135,7 @@ class Dashboard extends BaseController
             ];
 
             $this->userModel->save($data);
-            session()->setFlashdata('message', 'User Added Successfully');
+            session()->setFlashdata('success', 'User Added Successfully');
             return redirect()->to('/login');
         }
     }

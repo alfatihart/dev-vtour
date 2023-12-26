@@ -67,7 +67,7 @@ class Hotspots extends BaseController
         $this->hotspotModel->insert($data);
 
         // Store a success message in session
-        session()->setFlashdata('message', 'Hotspot created successfully');
+        session()->setFlashdata('success', 'Hotspot created successfully');
 
         // Redirect to the hotspot list page
         return redirect()->to('/hotspots');
@@ -112,7 +112,7 @@ class Hotspots extends BaseController
         $this->hotspotModel->update($id, $data);
 
         // Store a success message in session
-        session()->setFlashdata('message', 'Hotspot updated successfully');
+        session()->setFlashdata('success', 'Hotspot updated successfully');
 
         // Redirect to the hotspot list page
         return redirect()->to('/hotspots');
@@ -121,7 +121,7 @@ class Hotspots extends BaseController
     public function delete($id)
     {
         $this->hotspotModel->delete($id);
-        session()->setFlashdata('message', 'Hotspot deleted successfully!');
+        session()->setFlashdata('success', 'Hotspot deleted successfully!');
         return redirect()->to('/hotspots');
     }
 }

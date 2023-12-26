@@ -118,11 +118,19 @@
     }
 </script>
 <script>
-    <?php if (session()->getFlashdata('message')) : ?>
+    <?php if (!empty(session()->getFlashdata('success'))) : ?>
         Swal.fire({
             title: 'Success!',
-            text: '<?= session()->getFlashdata('message') ?>',
+            text: '<?= session()->getFlashdata('success') ?>',
             icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    <?php endif; ?>
+    <?php if (!empty(session()->getFlashdata('fail'))) : ?>
+        Swal.fire({
+            title: 'Failed!',
+            text: '<?= session()->getFlashdata('fail') ?>',
+            icon: 'error',
             confirmButtonText: 'OK'
         });
     <?php endif; ?>

@@ -123,12 +123,7 @@
             /* Sesuaikan warna sesuai kebutuhan */
             border: none;
             cursor: pointer;
-            top: 10px;
-            /* adjust as needed */
-            right: 10px;
-            /* adjust as needed */
         }
-
 
         .result-box {
             max-height: 300px;
@@ -304,7 +299,7 @@
             <div class="result-box">
             </div>
         </div>
-        <button class="close-btn rounded-circle" onclick="toggle()" type="button">
+        <button class="close-btn rounded-circle position-absolute top-0 start-100 translate-middle" onclick="toggle()" type="button">
             <i class="fa fa-times"></i>
         </button>
     </div>
@@ -538,7 +533,6 @@
                 }
             });
 
-
             console.log('Panorama loaded!');
             console.log('Current scene: ' + viewer.getScene());
             viewer.on('scenechange', function(sceneId) {
@@ -548,8 +542,6 @@
                 viewer.toggleFullscreen();
             });
         }
-
-
 
         function toggle() {
             var panorama = document.getElementById('panorama');
@@ -606,52 +598,9 @@
                         lat: <?= $map['latitude']; ?>,
                         lng: <?= $map['longitude']; ?>,
                         name: '<?= $map['name']; ?>',
-                        url: '<?= base_url(); ?>/?scene=<?= $map['scene_slug']; ?>'
+                        url: '<?= base_url(); ?>?scene=<?= $map['scene_slug']; ?>'
                     },
                 <?php endforeach; ?>
-                // {
-                //     lat: -5.132440089023397,
-                //     lng: 119.48786389693545,
-                //     name: 'Teaching Staff',
-                //     url: '/?scene=k-teaching-staff'
-                // },
-                // {
-                //     lat: -5.132440089023397,
-                //     lng: 119.48759079875605,
-                //     name: 'Visiting Scientist',
-                //     url: '/?scene=k-visit-scientist'
-                // },
-                // {
-                //     lat: -5.132440089023397,
-                //     lng: 119.48738963309442,
-                //     name: 'Administrative',
-                //     url: '/?scene=k-kantor-dep-mat'
-                // },
-                // {
-                //     lat: -5.132673467503202,
-                //     lng: 119.48738963309442,
-                //     name: 'Kaprodi',
-                //     url: '/?scene=testing'
-                // },
-                // {
-                //     lat: -5.132673467503202,
-                //     lng: 119.48706910910113,
-                //     name: 'Ruang Dosen',
-                //     url: '/?scene=testing'
-                // },
-                // {
-                //     lat: -5.132673467503202,
-                //     lng: 119.48683575690316,
-                //     name: 'Laboratorium',
-                //     url: '/?scene=testing'
-                // },
-                // {
-                //     lat: -5.132673467503202,
-                //     lng: 119.48659368755703,
-                //     name: 'Ruang Belajar',
-                //     url: '/?scene=testing'
-                // },
-                // Tambahkan lebih banyak lokasi jika diperlukan
             ];
 
             map = new google.maps.Map(document.getElementById('map'), {
@@ -701,146 +650,8 @@
                 }]
             }]);
 
-            // Tambahkan tema untuk mode malam (Night Mode)
-            // var nightModeStyle = new google.maps.StyledMapType(
-            //     [{
-            //             elementType: 'geometry',
-            //             stylers: [{
-            //                 color: '#242f3e'
-            //             }]
-            //         },
-            //         {
-            //             elementType: 'labels.text.stroke',
-            //             stylers: [{
-            //                 color: '#242f3e'
-            //             }]
-            //         },
-            //         {
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#746855'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'administrative.locality',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#d59563'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'poi',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#d59563'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'poi.park',
-            //             elementType: 'geometry',
-            //             stylers: [{
-            //                 color: '#263c3f'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'poi.park',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#6b9a76'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'road',
-            //             elementType: 'geometry',
-            //             stylers: [{
-            //                 color: '#38414e'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'road',
-            //             elementType: 'geometry.stroke',
-            //             stylers: [{
-            //                 color: '#212a37'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'road',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#9ca5b3'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'road.highway',
-            //             elementType: 'geometry',
-            //             stylers: [{
-            //                 color: '#746855'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'road.highway',
-            //             elementType: 'geometry.stroke',
-            //             stylers: [{
-            //                 color: '#1f2835'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'road.highway',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#f3d19c'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'transit',
-            //             elementType: 'geometry',
-            //             stylers: [{
-            //                 color: '#2f3948'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'transit.station',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#d59563'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'water',
-            //             elementType: 'geometry',
-            //             stylers: [{
-            //                 color: '#17263c'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'water',
-            //             elementType: 'labels.text.fill',
-            //             stylers: [{
-            //                 color: '#515c6d'
-            //             }]
-            //         },
-            //         {
-            //             featureType: 'water',
-            //             elementType: 'labels.text.stroke',
-            //             stylers: [{
-            //                 color: '#17263c'
-            //             }]
-            //         }
-            //     ], {
-            //         name: 'Night Mode'
-            //     }
-            // );
-
-            // map.mapTypes.set('night_mode', nightModeStyle);
             map.setMapTypeId('roadmap');
         }
-
-        // Fungsi untuk menyembunyikan semua marker
-        // function hideAllMarkers() {
-        //     markers.forEach(function (marker) {
-        //         marker.setMap(null);
-        //     });
-        // }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVYr3LxZOKtvdsczICy-K9CYZgLSoh51I&callback=initMap" async defer></script>

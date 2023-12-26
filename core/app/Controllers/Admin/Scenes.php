@@ -84,7 +84,7 @@ class Scenes extends BaseController
             ];
             $this->sceneModel->save($data);
 
-            session()->setFlashdata('message', 'New scene created successfully!');
+            session()->setFlashdata('success', 'New scene created successfully!');
 
             return redirect()->to('/scenes');
         } else {
@@ -144,7 +144,7 @@ class Scenes extends BaseController
             ];
             $this->sceneModel->update($id, $data);
 
-            session()->setFlashdata('message', 'Scene updated successfully!');
+            session()->setFlashdata('success', 'Scene updated successfully!');
 
             return redirect()->to('/scenes');
         } else {
@@ -161,7 +161,7 @@ class Scenes extends BaseController
             unlink('uploads/' . $scene['image']);
         }
         $this->sceneModel->delete($id);
-        session()->setFlashdata('message', 'Scene deleted successfully!');
+        session()->setFlashdata('success', 'Scene deleted successfully!');
         return redirect()->to('/scenes');
     }
 
@@ -343,7 +343,7 @@ class Scenes extends BaseController
         // Save the form data to the database
         $this->sceneModel->save($data);
 
-        session()->setFlashdata('message', 'New scene created successfully!');
+        session()->setFlashdata('success', 'New scene created successfully!');
 
         // Redirect to the scenes list page
         return redirect()->to('/scenes');

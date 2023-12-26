@@ -80,8 +80,7 @@
                         <label for="uploadImage" class="form-label">Preview</label>
                         <div id="uploadImage" style="display: flex; justify-content: center; align-items: center; overflow: auto;">
                             <div id="panoramaContainer" style="position: relative; width: 650px;">
-                                <!-- <div id="panorama" style="min-width: 480; min-height: 350px;"></div> -->
-                                <iframe width="650" height="400" allowfullscreen style="border-style:none;" src="<?= base_url('assets/standalone/pannellum.htm'); ?>#panorama=<?= base_url('uploads/') . $scene['image']; ?>&amp;autoLoad=true"></iframe>
+                                <div id="panorama" style="min-width: 480; min-height: 350px;"></div>
                                 <div id="marker" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; line-height: 30px; text-align: center; color: red; border: 2px solid red; border-radius: 50%;">+</div>
                             </div>
                         </div>
@@ -97,25 +96,7 @@
 </div>
 
 <script>
-    function loadPanorama(params) {
-        var viewer = pannellum.viewer('panorama', {
-            "type": "equirectangular",
-            "panorama": fileUrl,
-            "autoLoad": true,
-            "hotSpotDebug": false
-        });
-    }
-
-    document.getElementById('inputImage').addEventListener('change', function(e) {
-        var fileUrl = URL.createObjectURL(e.target.files[0]);
-
-        var panoramaHTML = '<div id="uploadImage" style="display: flex; justify-content: center; align-items: center; overflow: auto;"><div id="panoramaContainer" style="position: relative; width: 650px;"><div id="panorama" style="min-width: 480; min-height: 350px;"></div><div id="marker" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; line-height: 30px; text-align: center; color: red; border: 2px solid red; border-radius: 50%;">+</div></div></div>';
-
-        // Replace the img tag with the new div
-        var uploadImage = document.getElementById('uploadImage');
-        uploadImage.outerHTML = panoramaHTML;
-
-        // Load the panorama
+    function loadPanorama(fileUrl = '<?= base_url('uploads/') . $scene['image']; ?>') {
         var viewer = pannellum.viewer('panorama', {
             "type": "equirectangular",
             "panorama": fileUrl,
@@ -130,6 +111,21 @@
             console.log('Pitch: ' + pitch + ', Yaw: ' + yaw);
             document.getElementById('debug').innerHTML = 'Pitch: ' + Math.round(pitch) + ', Yaw/North: ' + Math.round(yaw);
         }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPanorama());
+
+    document.getElementById('inputImage').addEventListener('change', function(e) {
+        var fileUrl = URL.createObjectURL(e.target.files[0]);
+
+        var panoramaHTML = '<div id="uploadImage" style="display: flex; justify-content: center; align-items: center; overflow: auto;"><div id="panoramaContainer" style="position: relative; width: 650px;"><div id="panorama" style="min-width: 480; min-height: 350px;"></div><div id="marker" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; line-height: 30px; text-align: center; color: red; border: 2px solid red; border-radius: 50%;">+</div></div></div>';
+
+        // Replace the img tag with the new div
+        var uploadImage = document.getElementById('uploadImage');
+        uploadImage.outerHTML = panoramaHTML;
+
+        // Load the panorama
+        loadPanorama(fileUrl);
     });
 </script>
 <?= $this->endSection(); ?>
