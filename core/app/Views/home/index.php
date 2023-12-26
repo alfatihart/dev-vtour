@@ -432,16 +432,6 @@
         let panorama = document.getElementById('panorama');
         let rotateDevicePopup = document.getElementById('rotateDevicePopup');
 
-        // window.addEventListener('load', adjustPanoramaHeight);
-        window.addEventListener('resize', adjustPanoramaHeight);
-
-        function adjustPanoramaHeight() {
-            var navbarHeight = document.querySelector('.navbar').offsetHeight;
-            var viewportHeight = window.innerHeight;
-            var panoramaHeight = viewportHeight - navbarHeight;
-            document.getElementById('panorama').style.height = panoramaHeight + 'px';
-        }
-
         if (<?= $setting['device_orientation'] == 1 ? 'true' : 'false'; ?>) {
             console.log('Device orientation enabled!');
             if (window.innerWidth > window.innerHeight) {
@@ -477,6 +467,9 @@
         }
 
         function loadPanorama() {
+            var viewportHeight = window.innerHeight;
+            panorama.style.height = viewportHeight + 'px';
+            console.log('Viewport height: ' + viewportHeight);
             viewer = pannellum.viewer('panorama', {
                 "default": {
                     // "firstScene": "koridor",
