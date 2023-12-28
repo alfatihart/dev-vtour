@@ -33,13 +33,14 @@
     <div class="card">
         <div class="card-header">Edit Scene Form</div>
         <div class="card-body">
+
             <form action="<?= base_url('scenes/update/' . $scene['id']); ?>" method="post" enctype="multipart/form-data" class="row g-3">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="oldImage" value="<?= $scene['image']; ?>">
                 <div class="col-md-6">
                     <div class="form-group mb-3">
                         <label for="inputSceneId" class="form-label">Scene ID (slug)</label>
-                        <input type="text" name="slug" class="form-control form-control-solid <?= validation_show_error('title') ? 'is-invalid' : '' ?>" id="inputSceneId" value="<?= (old('slug')) ? old('slug') : $scene['slug']; ?>" placeholder="office-room">
+                        <input type="text" name="slug" class="form-control form-control-solid <?= validation_show_error('slug') ? 'is-invalid' : '' ?>" id="inputSceneId" value="<?= (old('slug')) ? old('slug') : $scene['slug']; ?>" placeholder="office-room">
                         <div class="invalid-feedback d-block">
                             <?= validation_show_error('slug') ?>
                         </div>

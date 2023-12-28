@@ -97,17 +97,20 @@ class SceneModel extends Model
                 ];
             }
 
-            $scenes[$row->id]['hotSpots'][] = [
-                'id' => $row->hotspot_id,
-                'type' => $row->type,
-                'text' => $row->text,
-                'style' => $row->style,
-                'pitch' => $row->hotspot_pitch,
-                'yaw' => $row->hotspot_yaw,
-                'sceneId' => $row->target_scene_slug, // use the slug of the target scene instead of its id
-                'url' => $row->url,
-            ];
-            $scenes[$row->id]['hotspotCount']++; // Increase hotspot count
+            // Only add hotspot if hotspot_id is not null
+            if ($row->hotspot_id !== null) {
+                $scenes[$row->id]['hotSpots'][] = [
+                    'id' => $row->hotspot_id,
+                    'type' => $row->type,
+                    'text' => $row->text,
+                    'style' => $row->style,
+                    'pitch' => $row->hotspot_pitch,
+                    'yaw' => $row->hotspot_yaw,
+                    'sceneId' => $row->target_scene_slug, // use the slug of the target scene instead of its id
+                    'url' => $row->url,
+                ];
+                $scenes[$row->id]['hotspotCount']++; // Increase hotspot count
+            }
         }
 
         return array_values($scenes);

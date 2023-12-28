@@ -58,9 +58,9 @@
                         <div class="form-group mb-3 col-md-6">
                             <label class="form-label" for="style">Hotspot Style</label>
                             <select name="style" class="form-control form-control-solid form-select" id="style" required>
-                                <option value="step-hotspot" <?= $hotspot['style'] == 'scene' ? 'selected' : '';; ?>>Step</option>
-                                <option value="room-hotspot" <?= $hotspot['style'] == 'scene' ? 'selected' : '';; ?>>Room</option>
-                                <option value="info-hotspot" <?= $hotspot['style'] == 'info' ? 'selected' : '';; ?>>Info</option>
+                                <option value="step-hotspot" <?= $hotspot['style'] == 'step-hotspot' ? 'selected' : '';; ?>>Step</option>
+                                <option value="room-hotspot" <?= $hotspot['style'] == 'room-hotspot' ? 'selected' : '';; ?>>Room</option>
+                                <option value="info-hotspot" <?= $hotspot['style'] == 'info-hotspot' ? 'selected' : '';; ?>>Info</option>
                             </select>
                         </div>
                     </div>

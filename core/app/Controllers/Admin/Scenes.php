@@ -57,21 +57,43 @@ class Scenes extends BaseController
 
     public function store()
     {
-        $imageFile = $this->request->getFile('image'); // Get the image file
-        if ($imageFile->getError() == 4) {
-            $imageName = 'default.jpg';
-        } else {
-            // $imageName = $imageFile->getRandomName(); // Generate a random name
-            $imageName = $this->request->getVar('slug') . '.' . $imageFile->getExtension(); // Get the image file name
-            $imageFile->move('uploads', $imageName); // Move the image file to the uploads folderss
-        }
-
         $rules = [
-            'slug' => 'required|is_unique[scenes.slug]',
-            'title' => 'required',
+            'slug' => [
+                'rules' => 'required|is_unique[scenes.slug]|regex_match[/^[^\s]*$/]',
+                'errors' => [
+                    'required' => 'The scene ID field is required.',
+                    'regex_match' => 'The slug field cannot contain spaces.',
+                    'is_unique' => 'The scene ID field must contain a unique value.'
+                ]
+            ],
+            'title' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'The title field is required.'
+                ]
+            ],
         ];
 
         if ($this->validate($rules)) {
+            $imageFile = $this->request->getFile('image'); // Get the image file
+            if ($imageFile->getError() == 4) {
+                $imageName = 'default.jpg';
+            } else {
+                $imageName = $imageFile->getName(); // Get the image file name
+
+                // Check if file with the same name exists
+                $filePath = 'uploads/' . $imageName;
+                $fileCounter = 1;
+                while (file_exists($filePath)) {
+                    $imageName = pathinfo($imageFile->getName(), PATHINFO_FILENAME) . '_' . $fileCounter . '.' . $imageFile->getExtension();
+                    $filePath = 'uploads/' . $imageName;
+                    $fileCounter++;
+                }
+
+                $imageFile->move('uploads', $imageName); // Move the image file to the uploads folder
+                // $imageName = $imageFile->getBasename(); // Get the new name of the file
+            }
+
             $data = [
                 'slug' => $this->request->getVar('slug'),
                 'title' => $this->request->getVar('title'),
@@ -80,7 +102,6 @@ class Scenes extends BaseController
                 'yaw' => $this->request->getVar('yaw'),
                 'north_offset' => $this->request->getVar('north_offset'),
                 'image' => $imageName,
-                // 'image' => $this->request->getVar('image'),
             ];
             $this->sceneModel->save($data);
 
@@ -88,7 +109,10 @@ class Scenes extends BaseController
 
             return redirect()->to('/scenes');
         } else {
-            return redirect()->to('scenes/create')->withInput();
+            // return redirect()->to('scenes/create')->withInput();
+
+            $validation = \Config\Services::validation();
+            return redirect()->to('scenes/create')->withInput()->with('validation', $validation);
         }
     }
 
@@ -111,9 +135,22 @@ class Scenes extends BaseController
         } else {
             $rule = 'required|is_unique[scenes.slug]';
         }
+
         $rules = [
-            'slug' => $rule,
-            'title' => 'required',
+            'slug' => [
+                'rules' => $rule . '|regex_match[/^[^\s]*$/]',
+                'errors' => [
+                    'required' => 'The scene ID field is required.',
+                    'regex_match' => 'The slug field cannot contain spaces.',
+                    'is_unique' => 'The scene ID field must contain a unique value.'
+                ]
+            ],
+            'title' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'The title field is required.'
+                ]
+            ],
         ];
 
         if ($this->validate($rules)) {
@@ -125,11 +162,24 @@ class Scenes extends BaseController
                     $imageName = 'default.jpg';
                 }
             } else {
-                // $imageName = $imageFile->getRandomName(); // Generate a random name
-                $imageName = $this->request->getVar('slug') . '_' . $id . '.' . $imageFile->getExtension(); // Get the image file name
-                $imageFile->move('uploads', $imageName); // Move the image file to the uploads folderss
-                if ($this->request->getVar('oldImage') != 'default.jpg' && file_exists('uploads/' . $this->request->getVar('oldImage'))) {
-                    unlink('uploads/' . $this->request->getVar('oldImage'));
+                $imageName = $imageFile->getName(); // Get the image file name
+
+                // Check if file with the same name exists
+                $filePath = 'uploads/' . $imageName;
+                $fileCounter = 1;
+                while (file_exists($filePath)) {
+                    $imageName = pathinfo($imageFile->getName(), PATHINFO_FILENAME) . '_' . $fileCounter . '.' . $imageFile->getExtension();
+                    $filePath = 'uploads/' . $imageName;
+                    $fileCounter++;
+                }
+
+                if ($imageFile->move('uploads', $imageName)) {
+                    if ($this->request->getVar('oldImage') != 'default.jpg' && file_exists('uploads/' . $this->request->getVar('oldImage'))) {
+                        unlink('uploads/' . $this->request->getVar('oldImage'));
+                    }
+                } else {
+                    session()->setFlashdata('fail', 'Failed to upload image!');
+                    return redirect()->to('scenes/edit/' . $this->request->getVar('slug'))->withInput();
                 }
             }
 
@@ -148,9 +198,10 @@ class Scenes extends BaseController
 
             return redirect()->to('/scenes');
         } else {
-            // $validation = \Config\Services::validation();
-            // return redirect()->to('scenes/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
-            return redirect()->to('scenes/edit/' . $this->request->getVar('slug'))->withInput();
+            $validation = \Config\Services::validation();
+            return redirect()->to('scenes/edit/' . $sceneOld['slug'])->withInput()->with('validation', $validation);
+
+            // return redirect()->to('scenes/edit/' . $this->request->getVar('slug'))->withInput();
         }
     }
 

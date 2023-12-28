@@ -38,7 +38,7 @@ class Maps extends BaseController
             'longitude' => $this->request->getVar('longitude')
         ]);
 
-        session()->setFlashdata('message', 'New maps pin has been added');
+        session()->setFlashdata('success', 'New maps pin has been added');
 
         return redirect()->to('/maps');
     }
@@ -59,7 +59,7 @@ class Maps extends BaseController
             'longitude' => $this->request->getVar('longitude')
         ]);
 
-        session()->setFlashdata('message', 'Maps pin has been updated');
+        session()->setFlashdata('success', 'Maps pin has been updated');
 
         return redirect()->to('/maps');
     }
@@ -68,7 +68,7 @@ class Maps extends BaseController
     {
         $this->mapModel->delete($id);
 
-        session()->setFlashdata('message', 'Maps pin has been deleted');
+        session()->setFlashdata('success', 'Maps pin has been deleted');
 
         return redirect()->to('/maps');
     }

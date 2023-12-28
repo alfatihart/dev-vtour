@@ -7,6 +7,38 @@
 <!-- Load Pannellum CSS -->
 <link rel="stylesheet" href="<?= base_url('assets/css/pannellum.css'); ?>">
 
+<!-- CSS for Select2 -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" /> -->
+
+<style>
+    /* .select2-container {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1.125rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: #69707a;
+        background-color: #eef2f8;
+        background-clip: padding-box;
+        border: 1px solid #c5ccd6;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        border-color: #eef2f8;
+    }
+
+    .select2-dropdown {
+
+    }
+
+    */
+</style>
+
+
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-xl px-4">
         <div class="page-header-content">
@@ -106,7 +138,25 @@
     </div>
 </div>
 
+<!-- Load jQuery and Select2 libraries -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+
+<!-- Initialize Select2 on your select element -->
 <script>
+    // jQuery(document).ready(function($) {
+    //     $('#main-scene').select2({
+    //         theme: 'bootstrap-5',
+    //         containerCssClass: 'form-control form-control-solid',
+    //         dropdownCssClass: 'form-select'
+    //     });
+    //     $('#target-scene').select2({
+    //         theme: 'bootstrap'
+    //     });
+    // });
+</script>
+<script>
+    // Show/hide target scene or target url field
     document.addEventListener('DOMContentLoaded', function() {
         var typeSelect = document.getElementById('type');
         var targetScene = document.getElementById('t-scene');
@@ -147,7 +197,7 @@
     // Load the panorama when the select field changes
     document.getElementById('main-scene').addEventListener('change', function() {
         var selectedOption = this.options[this.selectedIndex];
-        var imageUrl = '/uploads/' + selectedOption.dataset.imageName;
+        var imageUrl = '<?= base_url('uploads/'); ?>' + selectedOption.dataset.imageName;
 
         var panoramaHTML = '<div id="previewImage" style="display: flex; justify-content: center; align-items: center; overflow: auto;"><div id="panoramaContainer" style="position: relative; width: 650px;"><div id="panorama" style="min-width: 480; min-height: 350px;"></div><div id="marker" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; line-height: 30px; text-align: center; color: red; border: 2px solid red; border-radius: 50%;">+</div></div></div>';
 

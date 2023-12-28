@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content="Admin pages of Maths Virtual Tour" />
+    <meta name="author" content="RAA" />
     <title><?= $title; ?> - Virtual Tour</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" async />
     <link href="<?= base_url('assets/css/styles.css'); ?>" rel="stylesheet" async />
@@ -36,13 +36,6 @@
             position: fixed;
             top: 30%;
         }
-
-        @media (max-width: 1500px) {
-            .btn {
-                margin-right: 5px;
-                margin-bottom: 5px;
-            }
-        }
     </style>
 </head>
 
@@ -57,7 +50,7 @@
         <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="./">Maths V-Tour</a>
         <!-- Navbar Search Input-->
         <!-- * * Note: * * Visible only on and above the lg breakpoint-->
-        <div class="m-auto d-none d-lg-block me-3 text-end"><b>Welcome to Mathematics Department Virtual Tour!</b></div>
+        <div class="m-auto d-none d-lg-block me-3 text-end"><b>Welcome to Department of Mathematics Virtual Tour!</b></div>
         <!-- Navbar Items-->
         <ul class="navbar-nav align-items-center ms-auto">
 
@@ -157,7 +150,7 @@
             <footer class="footer-admin mt-auto footer-light">
                 <div class="container-xl px-4">
                     <div class="row">
-                        <div class="col-md-6 small">Copyright &copy; <?= date("Y") ?> Maths Virtual Tour</div>
+                        <div class="col-md-6 small">Copyright &copy; <?= date("Y") ?> <a href="<?= base_url(); ?>">Maths Virtual Tour</a></div>
                         <div class="col-md-6 text-md-end small">
                             <a href="https://github.com/alfatihart" target="_blank" class="link-secondary" rel="noopener">
                                 Made with

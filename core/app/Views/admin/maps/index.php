@@ -42,8 +42,8 @@ $this->extend('layouts/template'); ?>
                         <th>#</th>
                         <th>Name</th>
                         <th>Scene ID</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
+                        <th>Latitude (y axis)</th>
+                        <th>Longitude (x axis)</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -114,11 +114,11 @@ $this->extend('layouts/template'); ?>
                     </div>
                     <div class="mb-3">
                         <label for="latitude" class="col-form-label">Latitude:</label>
-                        <input type="number" step="0.000000000000001" name="latitude" class="form-control form-control-solid" id="latitude" placeholder="-5.132453768057395" required>
+                        <input type="number" step="0.000000000000000001" name="latitude" class="form-control form-control-solid" id="latitude" placeholder="-5.132453768057395" required>
                     </div>
                     <div class="mb-3">
                         <label for="longitude" class="col-form-label">Longitude:</label>
-                        <input type="number" step="0.000000000000001" name="longitude" class="form-control form-control-solid" id="longitude" placeholder="119.48799919063822" required>
+                        <input type="number" step="0.000000000000000001" name="longitude" class="form-control form-control-solid" id="longitude" placeholder="119.48799919063822" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -166,7 +166,7 @@ $this->extend('layouts/template'); ?>
             if (recipient == 'new') {
                 // New record
                 modalTitle.textContent = 'Create New Maps Pin'
-                mapsForm.setAttribute('action', '/maps/store')
+                mapsForm.setAttribute('action', '<?= base_url('maps/store'); ?>')
 
                 // Clear form fields
                 $('#pin-name').val('');
@@ -178,7 +178,7 @@ $this->extend('layouts/template'); ?>
             } else {
                 // Edit record
                 $.ajax({
-                    url: "/maps/edit/" + recipient,
+                    url: "<?= base_url('maps/edit/'); ?>" + recipient,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
@@ -186,20 +186,22 @@ $this->extend('layouts/template'); ?>
                         $('#scene-id').val(data.scene_id);
                         $('#latitude').val(data.latitude);
                         $('#longitude').val(data.longitude);
+                        console.log(data);
                     }
                 });
 
-                modalTitle.textContent = `Edit ${recipient} Maps Pin`
-                mapsForm.setAttribute('action', `/maps/update/${recipient}`)
+
+                modalTitle.textContent = `Edit #${recipient} Maps Pin`
+                mapsForm.setAttribute('action', `<?= base_url('maps/update/'); ?>${recipient}`)
             }
         })
     }
 </script>
 <script>
-    <?php if (session()->getFlashdata('message')) : ?>
+    <?php if (session()->getFlashdata('success')) : ?>
         Swal.fire({
             title: 'Success!',
-            text: '<?= session()->getFlashdata('message') ?>',
+            text: '<?= session()->getFlashdata('success') ?>',
             icon: 'success',
             confirmButtonText: 'OK'
         });

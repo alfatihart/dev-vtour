@@ -8,8 +8,8 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         margin: 0;
-        direction: rtl;
-        text-align: end;
+        /* direction: rtl; */
+        /* text-align: end; */
     }
 </style>
 
@@ -76,30 +76,32 @@
                                 <div class="text-wrap"><?= $hotspot['text']; ?></div>
                             </td>
                             <td>
-                                <div class="w-75 badge <?= $hotspot['type'] == 'scene' ? 'bg-primary' : 'bg-orange'; ?> text-white rounded-pill fw-bold font-monospace"><?= $hotspot['type']; ?></div>
-                                <div class="w-75 badge <?= $hotspot['style'] == 'step-hotspot' ? 'bg-danger' : ($hotspot['style'] == 'room-hotspot' ? 'bg-dark' : 'bg-success'); ?> text-white rounded-pill fw-bold font-monospace"><?= $hotspot['style']; ?></div>
+                                <div class="w-100 badge <?= $hotspot['type'] == 'scene' ? 'bg-primary' : 'bg-gray-700'; ?> text-white rounded-pill fw-bold"><?= $hotspot['type']; ?></div>
+                                <div class="w-100 badge <?= $hotspot['style'] == 'step-hotspot' ? 'bg-danger' : ($hotspot['style'] == 'room-hotspot' ? 'bg-success' : 'bg-warning'); ?> text-white rounded-pill fw-bold"><?= $hotspot['style']; ?></div>
                             </td>
                             <td><?= $hotspot['main_scene_slug']; ?></td>
                             <td><?= $hotspot['pitch']; ?></td>
                             <td><?= $hotspot['yaw']; ?></td>
                             <td>
                                 <!-- <p class="text-wrap text-break m-0" style="max-width: 25ch;"> -->
-                                <p><?= $hotspot['target_scene_slug'] != null ? $hotspot['target_scene_slug'] : $hotspot['url']; ?></p>
+                                <p><?= $hotspot['target_scene_slug'] != null ? $hotspot['target_scene_slug'] : ($hotspot['url'] != null ? $hotspot['url'] : '--none--'); ?></p>
                             </td>
                             <td>
-                                <div>
-                                    <a href="" class="btn btn-sm btn-primary" role="button">
-                                        <i class="fa fa-eye me-1"></i>Show</a>
+                                <div class="btn-group">
+                                    <a href="<?= base_url('?scene=' . $hotspot['main_scene_slug']); ?>" class="btn btn-sm btn-primary" role="button">
+                                        <i class="fa fa-eye"></i></a>
                                     <a href="<?= base_url('hotspots/edit/' . $hotspot['id']); ?>" class="btn btn-sm btn-warning" role="button">
-                                        <i class="fa fa-edit me-1"></i>Edit</a>
+                                        <i class="fa fa-edit"></i></a>
                                     <!-- Button trigger modal -->
-                                    <form id="deleteForm#<?= $hotspot['id']; ?>" action="<?= base_url('hotspots/' . $hotspot['id']); ?>" method="post" class="d-inline">
-                                        <?= csrf_field(); ?>
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $hotspot['id']; ?>)">
-                                            <i class="fa fa-trash me-1"></i>Delete
-                                        </button>
-                                    </form>
+                                    <div class="btn btn-sm btn-danger">
+                                        <form id="deleteForm#<?= $hotspot['id']; ?>" action="<?= base_url('hotspots/' . $hotspot['id']); ?>" method="post">
+                                            <?= csrf_field(); ?>
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <div type="button" onclick="confirmDelete(<?= $hotspot['id']; ?>)">
+                                                <i class="fa fa-trash"></i>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                                 <!-- <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                 <button class="btn btn-datatable btn-icon btn-transparent-dark"><i class="fa-regular fa-trash-can"></i></button> -->

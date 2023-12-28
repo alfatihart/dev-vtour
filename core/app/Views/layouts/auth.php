@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content="Authentication pages of Maths Virtual Tour." />
+    <meta name="author" content="RAA" />
     <title><?= $title; ?> - Virtual Tour</title>
     <link href="<?= base_url('assets/css/styles.css'); ?>" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/favicon.png'); ?>" />
@@ -26,7 +26,7 @@
             <footer class="footer-admin mt-auto footer-dark">
                 <div class="container-xl px-4">
                     <div class="row">
-                        <div class="col-md-6 small">Copyright &copy; <?= date("Y") ?> Maths Virtual Tour</div>
+                        <div class="col-md-6 small">Copyright &copy; <?= date("Y") ?> <a href="<?= base_url(''); ?>">Maths Virtual Tour</a></div>
                         <div class="col-md-6 text-md-end small">
                             <a href="https://github.com/alfatihart" target="_blank" class="link-secondary" rel="noopener">
                                 Made with

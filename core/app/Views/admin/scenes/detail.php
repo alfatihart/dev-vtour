@@ -102,7 +102,7 @@
                 <img src="<?= base_url('uploads/' . $scene['image']); ?>" alt="Panorama Image" class="rounded">
                 <div class="mt-4">
                     <span class="fw-bold mr-10 va-middle hide-mobile">Actions:</span>
-                    <a href="<?= base_url('scenes/' . $scene['slug']); ?>" class="btn btn-sm btn-primary">
+                    <a href="<?= base_url('?scene=' . $scene['slug']); ?>" class="btn btn-sm btn-primary">
                         <i class="fa fa-eye me-1"></i>Show</a>
                     <a href="<?= base_url('scenes/edit/' . $scene['slug']); ?>" class="btn btn-sm btn-warning">
                         <i class="fa fa-edit me-1"></i>Edit</a>

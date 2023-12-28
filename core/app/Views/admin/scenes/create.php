@@ -33,12 +33,12 @@
     <div class="card">
         <div class="card-header">New Scene Form</div>
         <div class="card-body">
-            <form action="/scenes/store" method="post" enctype="multipart/form-data" class="row g-3">
+            <form action="<?= base_url('scenes/store'); ?>" method="post" enctype="multipart/form-data" class="row g-3">
                 <?= csrf_field(); ?>
                 <div class="col-md-6">
                     <div class="form-group mb-3">
                         <label for="inputSceneId" class="form-label">Scene ID (slug)</label>
-                        <input type="text" name="slug" class="form-control form-control-solid <?= validation_show_error('title') ? 'is-invalid' : '' ?>" id="inputSceneId" value="<?= old('slug') ?>" placeholder="office-room">
+                        <input type="text" name="slug" class="form-control form-control-solid <?= validation_show_error('slug') ? 'is-invalid' : '' ?>" id="inputSceneId" value="<?= old('slug') ?>" placeholder="office-room">
                         <div class="invalid-feedback d-block">
                             <?= validation_show_error('slug') ?>
                         </div>

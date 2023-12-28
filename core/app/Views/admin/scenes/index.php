@@ -74,19 +74,21 @@
                                 <img src="<?= base_url('scenes/thumbnail?image=' . $scene['image']); ?>" width="100px" class="img-fluid" alt="Panorama Image">
                             </td>
                             <td>
-                                <div class="gap-3">
+                                <div class="btn-group">
                                     <a href="<?= base_url('scenes/' . $scene['slug']); ?>" class="btn btn-sm btn-primary">
-                                        <i class="fa fa-eye me-1"></i>Show</a>
+                                        <i class="fa fa-eye"></i></a>
                                     <a href="<?= base_url('scenes/edit/' . $scene['slug']); ?>" class="btn btn-sm btn-warning">
-                                        <i class="fa fa-edit me-1"></i>Edit</a>
+                                        <i class="fa fa-edit"></i></a>
                                     <!-- Button trigger modal -->
-                                    <form id="deleteForm#<?= $scene['id']; ?>" action="<?= base_url('scenes/' . $scene['id']); ?>" method="post" class="d-inline">
-                                        <?= csrf_field(); ?>
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $scene['id']; ?>)">
-                                            <i class="fa fa-trash me-1"></i>Delete
-                                        </button>
-                                    </form>
+                                    <div class="btn btn-sm btn-danger">
+                                        <form id="deleteForm#<?= $scene['id']; ?>" action="<?= base_url('scenes/' . $scene['id']); ?>" method="post" class="d-inline">
+                                            <?= csrf_field(); ?>
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <div type="button" onclick="confirmDelete(<?= $scene['id']; ?>)">
+                                                <i class="fa fa-trash"></i>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                                 <!-- <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                 <button class="btn btn-datatable btn-icon btn-transparent-dark"><i class="fa-regular fa-trash-can"></i></button> -->
