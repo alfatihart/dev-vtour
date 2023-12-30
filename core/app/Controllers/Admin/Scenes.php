@@ -289,6 +289,9 @@ class Scenes extends BaseController
                 $srcHeight
             );
 
+            // Set the interlace bit
+            imageinterlace($thumbnail, true);
+
             // Save the thumbnail to the cache file
             imagejpeg($thumbnail, $cacheFile);
 
@@ -312,12 +315,18 @@ class Scenes extends BaseController
         $img = Image::make('uploads/' . $image);
 
         // Resize the image to a width of 250 and constrain aspect ratio (auto height)
-        // $img->resize(250, null, function ($constraint) {
-        //     $constraint->aspectRatio();
-        // });
+        $img->resize(4000, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
 
         // Make the image a progressive JPEG
         $img->interlace();
+
+        // Encode the image as a JPEG with a quality of 75%
+        $img = $img->encode('jpg', 75);
+
+        // Save the image
+        // $img->save('test/resized_' . $image);
 
         // Return the image
         return $img->response('jpg');

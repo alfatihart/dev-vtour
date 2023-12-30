@@ -20,13 +20,13 @@
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-link ms-0 active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
-            <a class="nav-link" id="nav-security-tab" data-bs-toggle="tab" data-bs-target="#nav-security" type="button" role="tab" aria-controls="nav-security" aria-selected="false">Security</a>
+            <a class="nav-link ms-0 <?= empty(session()->getFlashdata('activeTab')) ? 'active' : ''; ?>" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
+            <a class="nav-link <?= session()->getFlashdata('activeTab') == 'nav-security' ? 'active' : ''; ?>" id="nav-security-tab" data-bs-toggle="tab" data-bs-target="#nav-security" type="button" role="tab" aria-controls="nav-security" aria-selected="false">Security</a>
         </div>
     </nav>
     <hr class="mt-0 mb-4" />
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+        <div class="tab-pane fade <?= empty(session()->getFlashdata('activeTab')) ? 'show active' : ''; ?>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
             <div class="row">
                 <div class="col-xl-4">
                     <!-- Profile picture card-->
@@ -47,7 +47,7 @@
                     <div class="card mb-4">
                         <div class="card-header">Account Details</div>
                         <div class="card-body">
-                            <form method="post" action="/account/update/<?= $user['id']; ?>">
+                            <form method="post" action="<?= route_to('admin.account.handler', $user['id']); ?>">
                                 <?= csrf_field(); ?>
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
@@ -89,29 +89,38 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="nav-security" role="tabpanel" aria-labelledby="nav-security-tab" tabindex="0">
+        <div class="tab-pane fade <?= session()->getFlashdata('activeTab') == 'nav-security' ? 'show active' : ''; ?>" id="nav-security" role="tabpanel" aria-labelledby="nav-security-tab" tabindex="0">
             <div class="row">
                 <div class="col-lg-8">
                     <!-- Change password card-->
                     <div class="card mb-4">
                         <div class="card-header">Change Password</div>
                         <div class="card-body">
-                            <form method="post" action="/account/updatePw/<?= $user['id']; ?>">
+                            <form method="post" action="<?= route_to('admin.password.handler', $user['id']); ?>">
                                 <?= csrf_field(); ?>
                                 <!-- Form Group (current password)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="currentPassword">Current Password</label>
-                                    <input class="form-control" id="currentPassword" type="password" placeholder="Enter current password" required />
+                                    <input class="form-control <?= validation_show_error('currentPassword') ? 'is-invalid' : '' ?>"" name=" currentPassword" id="currentPassword" value="<?= old('currentPassword') ?>" type="password" placeholder="Enter current password" />
+                                    <div class="invalid-feedback d-block">
+                                        <?= validation_show_error('currentPassword') ?>
+                                    </div>
                                 </div>
                                 <!-- Form Group (new password)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="newPassword">New Password</label>
-                                    <input name="password" class="form-control" id="newPassword" type="password" placeholder="Enter new password" required />
+                                    <input name="newPassword" class="form-control <?= validation_show_error('newPassword') ? 'is-invalid' : '' ?>"" id=" newPassword" value="<?= old('newPassword') ?>" type="password" placeholder="Enter new password" />
+                                    <div class="invalid-feedback d-block">
+                                        <?= validation_show_error('newPassword') ?>
+                                    </div>
                                 </div>
                                 <!-- Form Group (confirm password)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="confirmPassword">Confirm Password</label>
-                                    <input class="form-control" id="confirmPassword" type="password" placeholder="Confirm new password" required />
+                                    <input class="form-control <?= validation_show_error('confirmPassword') ? 'is-invalid' : '' ?>"" name=" confirmPassword" id="confirmPassword" value="<?= old('confirmPassword') ?>" type="password" placeholder="Confirm new password" />
+                                    <div class="invalid-feedback d-block">
+                                        <?= validation_show_error('confirmPassword') ?>
+                                    </div>
                                 </div>
                                 <button class="btn btn-primary" type="submit">Save</button>
                             </form>
@@ -125,10 +134,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
 <script>
-    <?php if (session()->getFlashdata('message')) : ?>
+    <?php if (session()->getFlashdata('success')) : ?>
         Swal.fire({
             title: 'Success!',
-            text: '<?= session()->getFlashdata('message') ?>',
+            text: '<?= session()->getFlashdata('success') ?>',
             icon: 'success',
             confirmButtonText: 'OK'
         });

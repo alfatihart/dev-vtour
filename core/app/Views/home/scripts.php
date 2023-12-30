@@ -39,6 +39,11 @@
 
     function loadPanorama() {
         var viewportHeight = window.innerHeight;
+        window.addEventListener('resize', function() {
+            viewportHeight = window.innerHeight;
+            panorama.style.height = viewportHeight + 'px';
+            console.log('Viewport height: ' + viewportHeight);
+        });
         panorama.style.height = viewportHeight + 'px';
         console.log('Viewport height: ' + viewportHeight);
         viewer = pannellum.viewer('panorama', {
@@ -83,11 +88,11 @@
                     "pitch": 0,
                     "yaw": -180,
                     "type": "equirectangular",
-                    "panorama": "/uploads/for-test_2.jpg",
+                    "panorama": "/uploads/default.jpg",
                     // "panorama": "https://cdn.jsdelivr.net/gh/alfatihart/vt-math@main/hd/<= $scene['image']; ?>",
                     // "panorama": "<= base_url('uploads/' . $scene['image']); ?>",
                     // "panorama": "<= base_url('cache/' . $scene['image']) . '_250x125.jpg'; ?>",
-                    // "panorama": "<= base_url('/scenes/render/' . $scene['image']); ?>",
+                    // "panorama": "<= base_url('scenes/render/' . $scene['image']); ?>",
                     "hotSpots": [{
                             "pitch": -20,
                             "yaw": -180,
@@ -171,6 +176,10 @@
 
 <!-- script maps -->
 <script>
+    // if (!(window.google)) {
+    //     alert('Please disable your adblocker to view the map.');
+    // }
+
     var map;
     var markers = [];
 

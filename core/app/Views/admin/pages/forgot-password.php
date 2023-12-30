@@ -21,13 +21,13 @@
                         </div>
                         <!-- Form Group (submit options)-->
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                            <a class="small" href="<?= base_url('login'); ?>">Return to login</a>
-                            <a class="btn btn-primary" href="<?= base_url('login'); ?>">Reset Password</a>
+                            <a class="small" href="<?= route_to('admin.login.form'); ?>">Return to login</a>
+                            <a class="btn btn-primary" href="<?= route_to('admin.login.form'); ?>">Reset Password</a>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <div class="small"><a href="<?= base_url('register'); ?>">Need an account? Sign up!</a></div>
+                    <div class="small"><a href="<?= route_to('admin.register.form'); ?>">Need an account? Sign up!</a></div>
                 </div>
             </div>
         </div>

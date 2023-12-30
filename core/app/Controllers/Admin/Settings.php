@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\SettingModel;
 use App\Models\SceneModel;
 use App\Models\UserModel;
+use Kint\Zval\Value;
 
 class Settings extends BaseController
 {
@@ -18,6 +19,8 @@ class Settings extends BaseController
         $this->settingModel = new SettingModel();
         $this->sceneModel = new SceneModel();
         $this->userModel = new UserModel();
+
+        helper(['form']); // Load the form helper
     }
     public function index(): string
     {
@@ -67,7 +70,7 @@ class Settings extends BaseController
 
         $data = [
             'title' => 'Account Settings',
-            'user' => $user
+            'user' => $user,
         ];
 
         return view('admin/settings/account', $data);
@@ -96,19 +99,54 @@ class Settings extends BaseController
 
     public function updatePassword($id)
     {
-        // Retrieve the data from the form submission
-        $password = $this->request->getVar('password');
-        $data = [
-            'password' => password_hash($password, PASSWORD_DEFAULT)
+        $rules = [
+            'currentPassword' => [
+                'rules' => 'required|min_length[5]|max_length[16]|validate_user_password[' . $id . ']',
+                'errors' => [
+                    'required' => 'Current password is required',
+                    'min_length' => 'Current password must be at least 5 characters in length',
+                    'max_length' => 'Current password cannot exceed 16 characters in length',
+                    'validate_user_password' => 'Current password is incorrect'
+                ]
+            ],
+            'newPassword' => [
+                'rules' => 'required|min_length[5]|max_length[16]|is_password_strong[new_password]',
+                'errors' => [
+                    'required' => 'New password is required',
+                    'min_length' => 'New password must be at least 5 characters in length',
+                    'max_length' => 'New password cannot exceed 16 characters in length',
+                    'is_password_strong' => 'New password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+                ]
+            ],
+            'confirmPassword' => [
+                'rules' => 'required|matches[newPassword]',
+                'errors' => [
+                    'required' => 'Confirm password is required',
+                    'matches' => 'Confirm password must match new password'
+                ]
+            ]
         ];
 
-        // Update the data to the database
-        $this->userModel->update($id, $data);
+        if (!$this->validate($rules)) {
+            $validation = \Config\Services::validation();
+            $activeTab = 'nav-security';
+            return redirect()->to('/account')->withInput()->with('activeTab', $activeTab)->with('validation', $validation);
+        } else {
 
-        // Store a success message in session
-        session()->setFlashdata('message', 'Password updated successfully');
+            // Retrieve the data from the form submission
+            $password = $this->request->getVar('password');
+            $data = [
+                'password' => password_hash($password, PASSWORD_DEFAULT)
+            ];
 
-        // Redirect to the settings page
-        return redirect()->to('/account');
+            // Update the data to the database
+            $this->userModel->update($id, $data);
+
+            // Store a success message in session
+            session()->setFlashdata('success', 'Password updated successfully');
+
+            // Redirect to the settings page
+            return redirect()->to('/account');
+        }
     }
 }

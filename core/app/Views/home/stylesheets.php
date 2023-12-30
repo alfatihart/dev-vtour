@@ -127,30 +127,6 @@
         margin-right: 50px;
     }
 
-    /* Media query for mobile devices */
-    @media screen and (max-width: 650px) {
-        .search-box {
-            width: 80vw;
-        }
-
-        .pnlm-compass {
-            display: block !important;
-            top: 10px;
-            right: 12px;
-            bottom: auto;
-        }
-
-        .pnlm-panorama-info {
-            display: block !important;
-            top: 18px;
-            bottom: auto;
-        }
-
-        #imageHD {
-            margin-top: 60px;
-            margin-right: 10px;
-        }
-    }
 
     /* custom hotspot */
     .step-hotspot {
@@ -228,5 +204,49 @@
         left: 0;
         width: 100%;
         height: 100%;
+    }
+
+    /* Media query for mobile devices */
+    @media screen and (max-width: 650px) {
+        .search-box {
+            width: 80vw;
+        }
+
+        .pnlm-compass {
+            display: block !important;
+            top: 10px;
+            right: 12px;
+            bottom: auto;
+        }
+
+        .pnlm-panorama-info {
+            display: block !important;
+            top: 18px;
+            bottom: auto;
+        }
+
+        #imageHD {
+            margin-top: 60px;
+            margin-right: 10px;
+        }
+
+        /* custom hotspot */
+        .step-hotspot {
+            height: 65px;
+            width: 65px;
+            background-size: 65px 65px;
+        }
+
+        .room-hotspot {
+            height: 45px;
+            width: 45px;
+            background-size: 45px 45px;
+        }
+
+        .info-hotspot {
+            height: 40px;
+            width: 40px;
+            background-size: 40px 40px;
+        }
     }
 </style>

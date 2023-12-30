@@ -6,10 +6,14 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/login', 'Admin\Dashboard::login');
-$routes->post('/auth', 'Admin\Dashboard::checkLogin');
-$routes->get('/register', 'Admin\Dashboard::register');
-$routes->post('/reg', 'Admin\Dashboard::registerUser');
+$routes->get('/login', 'Auth::loginForm', ['as' => 'admin.login.form']);
+$routes->post('/login', 'Auth::loginHandler', ['as' => 'admin.login.handler']);
+$routes->get('/register', 'Auth::registerForm', ['as' => 'admin.register.handler']);
+$routes->post('/register', 'Auth::registerHandler', ['as' => 'admin.register.handler']);
+// $routes->get('/login', 'Admin\Dashboard::login');
+// $routes->post('/auth', 'Admin\Dashboard::checkLogin');
+// $routes->get('/register', 'Admin\Dashboard::register');
+// $routes->post('/reg', 'Admin\Dashboard::registerUser');
 
 $routes->get('/forgot-pw', 'Admin\Dashboard::forgotPassword');
 $routes->get('/logout', 'Admin\Dashboard::logout');
@@ -39,7 +43,9 @@ $routes->post('/maps/store', 'Admin\Maps::store', ['filter' => 'auth']);
 $routes->post('/maps/update/(:num)', 'Admin\Maps::update/$1', ['filter' => 'auth']);
 
 $routes->get('/account', 'Admin\Settings::account', ['filter' => 'auth']);
-$routes->post('/account/update/(:num)', 'Admin\Settings::updateAccount/$1', ['filter' => 'auth']);
-$routes->post('/account/updatePw/(:num)', 'Admin\Settings::updatePassword/$1', ['filter' => 'auth']);
+$routes->post('/account/updateAccount/(:num)', 'Auth::updateAccount/$1', ['as' => 'admin.account.handler'], ['filter' => 'auth']);
+$routes->post('/account/updatePassword/(:num)', 'Auth::updatePassword/$1', ['as' => 'admin.password.handler'], ['filter' => 'auth']);
+// $routes->post('/account/update/(:num)', 'Admin\Settings::updateAccount/$1', ['filter' => 'auth']);
+// $routes->post('/account/updatePw/(:num)', 'Admin\Settings::updatePassword/$1', ['filter' => 'auth']);
 $routes->get('/system', 'Admin\Settings::index', ['filter' => 'auth']);
 $routes->post('/system/update/(:num)', 'Admin\Settings::update/$1', ['filter' => 'auth']);

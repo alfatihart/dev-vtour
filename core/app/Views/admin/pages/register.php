@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     <!-- Registration form-->
-                    <form action="<?= base_url('reg'); ?>" method="post">
+                    <form action="<?= route_to('admin.register.handler'); ?>" method="post">
                         <?= csrf_field(); ?>
                         <input type="hidden" name="role" value="admin">
                         <!-- Form Row-->
@@ -75,7 +75,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <div class="small"><a href="<?= base_url('login'); ?>">Have an account? Go to login</a></div>
+                    <div class="small"><a href="<?= route_to('admin.login.form'); ?>">Have an account? Go to login</a></div>
                 </div>
             </div>
         </div>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-$firstScene = !empty($_GET['scene']) ? $_GET['scene'] : $firstSceneSlug;
-$path = "https://cdn.jsdelivr.net/gh/alfatihart/vt-math@main/hd/";
-$hd = !empty($_GET['hd']) ? $_GET['hd'] : false;
-?>
-<!-- WIFI LT1 SANDI 07051974 -->
 
 <head>
+    <?php
+    $firstScene = !empty($_GET['scene']) ? $_GET['scene'] : $firstSceneSlug;
+    $path = "https://cdn.jsdelivr.net/gh/alfatihart/vt-math@main/hd/";
+    $hd = !empty($_GET['hd']) ? $_GET['hd'] : false;
+    ?>
+
+    <!-- WIFI LT1 SANDI 07051974 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A virtual tour is a simulation of an existing location, usually composed of a sequence of videos or still images.">
@@ -32,7 +33,7 @@ $hd = !empty($_GET['hd']) ? $_GET['hd'] : false;
 <body>
     <div class="position-relative z-2">
         <div id="imageHD" class="position-absolute top-0 end-0">
-            <button id="btnHD" class="bi-badge-hd" style="font-size: 3rem; color: cornflowerblue;" type="button" onclick="confirmHD()" aria-label="HD">
+            <button id="btnHD" class="bi-badge-hd" style="font-size: 3rem; color: whitesmoke;" type="button" onclick="confirmHD()" aria-label="HD">
         </div>
     </div>
     <div id="panorama" style="width: 100vw; height: 100vh;">

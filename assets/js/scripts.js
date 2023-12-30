@@ -70,8 +70,8 @@
     // console.log(activatedPath[1]);
     let url = location.origin +  '/' + activatedPath[1];
     let url2 = location.origin + '/' + activatedPath[1] + '/' + activatedPath[2];
-    // console.log(url2);
-    // console.log(url);
+    console.log(url2);
+    console.log(url);
     const targetAnchors = document.body.querySelectorAll('[href="' + url + '"].nav-link');
     // console.log(targetAnchors);
     targetAnchors.forEach(targetAnchor => {

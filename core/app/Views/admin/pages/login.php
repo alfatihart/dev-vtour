@@ -11,17 +11,17 @@
                 </div>
                 <div class="card-body">
                     <!-- Login form-->
-                    <form action="<?= base_url('auth'); ?>" method="post">
+                    <form action="<?= route_to('admin.login.handler'); ?>" method="post">
                         <?= csrf_field(); ?>
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Username</label>
-                            <input name="username" class="form-control" id="inputUsername" type="text" placeholder="Enter username" />
+                            <input name="username" class="form-control" id="inputUsername" type="text" placeholder="Enter username" value="<?= set_value('username'); ?>" />
                         </div>
                         <!-- Form Group (password)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputPassword">Password</label>
-                            <input name="password" class="form-control" id="inputPassword" type="password" placeholder="Enter password" />
+                            <input name="password" class="form-control" id="inputPassword" type="password" placeholder="Enter password" value="<?= set_value('password'); ?>" />
                         </div>
                         <!-- Form Group (remember password checkbox)-->
                         <div class="mb-3">
@@ -39,7 +39,7 @@
                 </div>
                 <?php if ($usersCount == 0) : ?>
                     <div class="card-footer text-center">
-                        <div class="small"><a href="<?= base_url('register'); ?>">Need an account? Sign up!</a></div>
+                        <div class="small"><a href="<?= route_to('admin.register.form'); ?>">Need an account? Sign up!</a></div>
                     </div>
                 <?php endif; ?>
             </div>
