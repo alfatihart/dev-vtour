@@ -110,19 +110,8 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
 <script>
     document.querySelectorAll('#myForm input, #myForm select, #myForm button').forEach(element => element.disabled = true);
-
-    <?php if (session()->getFlashdata('message')) : ?>
-        Swal.fire({
-            title: 'Success!',
-            text: '<?= session()->getFlashdata('message') ?>',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    <?php endif; ?>
 
     document.getElementById('editButton').addEventListener('click', function() {
         Swal.fire({

@@ -130,7 +130,7 @@ $this->extend('layouts/template'); ?>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script> -->
 <script>
     function confirmDelete(id) {
         Swal.fire({
@@ -196,15 +196,5 @@ $this->extend('layouts/template'); ?>
             }
         })
     }
-</script>
-<script>
-    <?php if (session()->getFlashdata('success')) : ?>
-        Swal.fire({
-            title: 'Success!',
-            text: '<?= session()->getFlashdata('success') ?>',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    <?php endif; ?>
 </script>
 <?php $this->endSection(); ?>

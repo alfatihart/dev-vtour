@@ -15,9 +15,9 @@ $routes->post('/register', 'Auth::registerHandler', ['as' => 'admin.register.han
 // $routes->get('/register', 'Admin\Dashboard::register');
 // $routes->post('/reg', 'Admin\Dashboard::registerUser');
 
-$routes->get('/forgot-pw', 'Admin\Dashboard::forgotPassword');
-$routes->get('/logout', 'Admin\Dashboard::logout');
-$routes->get('/dashboard', 'Admin\Dashboard::index', ['filter' => 'auth']);
+$routes->get('/forgot-pw', 'Auth::forgotPassword');
+$routes->get('/logout', 'Admin\Dashboard::logout', ['as' => 'admin.logout'], ['filter' => 'auth']);
+$routes->get('/dashboard', 'Admin\Dashboard::index', ['as' => 'admin.home'], ['filter' => 'auth']);
 
 $routes->get('/scenes', 'Admin\Scenes::index', ['filter' => 'auth']);
 $routes->get('/scenes/create', 'Admin\Scenes::create', ['filter' => 'auth']);

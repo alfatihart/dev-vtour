@@ -45,6 +45,26 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="<?= base_url('assets/js/scripts.js'); ?>"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+    <script>
+        <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            Swal.fire({
+                title: 'Success!',
+                text: '<?= session()->getFlashdata('success') ?>',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+        <?php if (!empty(session()->getFlashdata('fail'))) : ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: '<?= session()->getFlashdata('fail') ?>',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>

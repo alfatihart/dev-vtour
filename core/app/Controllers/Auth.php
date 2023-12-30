@@ -31,15 +31,39 @@ class Auth extends BaseController
     public function loginHandler()
     {
         $session = session();
-        $username = $this->request->getVar('username');
-        $password = $this->request->getVar('password');
-        $user = $this->userModel->where('username', $username)->first();
 
-        if ($user) {
-            $pass = $user['password'];
-            $verifyPassword = password_verify($password, $pass);
+        $isValid = $this->validate([
+            'username' => [
+                'rules' => 'required|is_not_unique[users.username]',
+                'errors' => [
+                    'required' => 'Username is required',
+                    'is_not_unique' => 'Username is not registered',
+                ],
+            ],
+            'password' => [
+                'rules' => 'required|min_length[5]|max_length[16]',
+                'errors' => [
+                    'required' => 'Password is required',
+                    'min_length' => 'Password must be at least 5 characters',
+                    'max_length' => 'Password must be at most 16 characters',
+                ],
+            ],
+        ]);
 
-            if ($verifyPassword) {
+        if (!$isValid) {
+            return view('admin/pages/login', [
+                'title' => 'Login',
+                'usersCount' => $this->userModel->countUsers(),
+                'validation' => $this->validator,
+            ]);
+        } else {
+            $userModel = new UserModel();
+            $user = $userModel->where('username', $this->request->getVar('username'))->first();
+            $check_password = password_verify($this->request->getVar('password'), $user['password']);
+
+            if (!$check_password) {
+                return redirect()->route('admin.login.form')->with('fail', 'Wrong password')->withInput();
+            } else {
                 $data = [
                     'id' => $user['id'],
                     'username' => $user['username'],
@@ -52,14 +76,8 @@ class Auth extends BaseController
                 ];
 
                 $session->set($data);
-                return redirect()->to('/dashboard');
-            } else {
-                $session->setFlashdata('fail', 'Wrong Password');
-                return redirect()->to('/login')->withInput();
+                return redirect()->route('admin.home');
             }
-        } else {
-            $session->setFlashdata('fail', 'Username not Found');
-            return redirect()->to('/login')->withInput();
         }
     }
 
@@ -109,7 +127,7 @@ class Auth extends BaseController
                 ]
             ],
             'password' => [
-                'rules' => 'required|min_length[5]|max_length[12]',
+                'rules' => 'required|min_length[5]|max_length[16]',
                 'errors' => [
                     'required' => 'Password is required',
                     'min_length' => 'Password is too short',
@@ -117,7 +135,7 @@ class Auth extends BaseController
                 ]
             ],
             'cpassword' => [
-                'rules' => 'required|min_length[5]|max_length[12]|matches[password]',
+                'rules' => 'required|min_length[5]|max_length[16]|matches[password]',
                 'errors' => [
                     'required' => 'Confirm password is required',
                     'min_length' => 'Confirm password is too short',

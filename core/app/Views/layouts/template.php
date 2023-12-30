@@ -82,7 +82,7 @@
                         <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
                         Account
                     </a>
-                    <a class="dropdown-item" href="<?= base_url('logout'); ?>">
+                    <a class="dropdown-item" href="<?= route_to('admin.logout'); ?>">
                         <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
                         Logout
                     </a>
@@ -175,6 +175,26 @@
     <script src="<?= base_url('assets/js/scripts.js'); ?>"></script>
     <script src="<?= base_url('assets/js/datatables/datatables-simple-demo.js'); ?>"></script>
     <script src="<?= base_url('assets/js/dark-mode-switch.js'); ?>"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+    <script>
+        <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            Swal.fire({
+                title: 'Success!',
+                text: '<?= session()->getFlashdata('success') ?>',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+        <?php if (!empty(session()->getFlashdata('fail'))) : ?>
+            Swal.fire({
+                title: 'Failed!',
+                text: '<?= session()->getFlashdata('fail') ?>',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>

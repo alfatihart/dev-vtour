@@ -16,12 +16,18 @@
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Username</label>
-                            <input name="username" class="form-control" id="inputUsername" type="text" placeholder="Enter username" value="<?= set_value('username'); ?>" />
+                            <input name="username" class="form-control <?= validation_show_error('username') ? 'is-invalid' : '' ?>" id="inputUsername" type="text" placeholder="Enter username" value="<?= set_value('username'); ?>" />
+                            <div class="invalid-feedback d-block">
+                                <?= validation_show_error('username') ?>
+                            </div>
                         </div>
                         <!-- Form Group (password)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputPassword">Password</label>
-                            <input name="password" class="form-control" id="inputPassword" type="password" placeholder="Enter password" value="<?= set_value('password'); ?>" />
+                            <input name="password" class="form-control <?= validation_show_error('password') ? 'is-invalid' : '' ?>" id="inputPassword" type="password" placeholder="Enter password" value="<?= set_value('password'); ?>" />
+                            <div class="invalid-feedback d-block">
+                                <?= validation_show_error('password') ?>
+                            </div>
                         </div>
                         <!-- Form Group (remember password checkbox)-->
                         <div class="mb-3">
@@ -46,24 +52,4 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
-<script>
-    <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        Swal.fire({
-            title: 'Success!',
-            text: '<?= session()->getFlashdata('success') ?>',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    <?php endif; ?>
-    <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-        Swal.fire({
-            title: 'Failed!',
-            text: '<?= session()->getFlashdata('fail') ?>',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-    <?php endif; ?>
-</script>
 <?php $this->endSection(); ?>
