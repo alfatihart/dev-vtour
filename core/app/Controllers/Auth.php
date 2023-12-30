@@ -138,7 +138,7 @@ class Auth extends BaseController
                 'last_name' => $this->request->getVar('lastname'),
                 'username' => $this->request->getVar('username'),
                 'email' => $this->request->getVar('email'),
-                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
                 'role' => $this->request->getVar('role')
             ];
 
@@ -223,7 +223,7 @@ class Auth extends BaseController
             // Retrieve the data from the form submission
             $password = $this->request->getVar('newPassword');
             $data = [
-                'password' => password_hash($password, PASSWORD_DEFAULT)
+                'password' => password_hash($password, PASSWORD_BCRYPT)
             ];
 
             // Update the data to the database
